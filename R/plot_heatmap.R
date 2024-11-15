@@ -35,7 +35,7 @@ if (is.null(group_levels)){
   group_levels<-levels(seu_obj@meta.data[,group])
   }
 levels(cell1)<-group_levels
-if (is.null()) {
+if (is.null(assays)) {
   assays = DefaultAssay(seu_obj)
 }
 cell1_avg<-AverageExpression(cell1, verbose = F, return.seurat = F, assays = assays, slot = slot)
