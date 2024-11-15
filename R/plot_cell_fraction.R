@@ -20,7 +20,8 @@ plot_cell_fraction<-function(
   groupby, 
   show_replicate = FALSE, 
   rep_colname = NULL,
-  strip.color = NULL
+  strip.color = NULL,
+  fill = NULL
   ){
   meta_data<-seu_obj@meta.data
   meta_data$celltype<-as.character(Idents(seu_obj))
@@ -56,18 +57,26 @@ plot_cell_fraction<-function(
   }
   freq_df <- freq_df[freq_df$celltype %in% celltypes, ]
   freq_df$celltype <- factor(freq_df$celltype, levels = celltypes)
- p <- ggplot(freq_df, aes(group, Freq, fill=group))+
+
+   p <- ggplot(freq_df, aes(group, Freq, fill=group))+
     geom_bar(position = "dodge",  stat = "summary", fun='mean', width = 0.6)+
     stat_summary(fun.data = mean_se, geom = "errorbar", width=0.2, size=1, color='midnightblue', alpha=0.8)+
     ylab('Percentage of cells')+xlab('')+
-    scale_fill_manual(values = brewer.pal(8, 'Set2'))+
     theme(panel.background = element_rect(fill = "white", colour = "grey50"),
           strip.text = element_text(size = 12),axis.title = element_text(size = 14),
           axis.text.x = element_text(angle = 45, vjust = 1, hjust=1, size = 12),
           legend.position = "none", axis.text.y = element_text(size = 12),
           legend.text = element_text(size = 12), legend.title = element_text(size = 12, face = 'bold'), 
           plot.title = element_text(hjust =0.5))
- 
+  
+  if (is.null(fill) {
+    p <- p + scale_fill_manual(values = brewer.pal(8, 'Set2'))
+  } else {
+    p <- p + scale_fill_manual(values = fill)
+  }
+
+     
+
  if(show_replicate){
    p <- p +   geom_quasirandom(size=1,width = 0.2, color='midnightblue', alpha=0.8, groupOnX = F)+facet_wrap(~celltype, scales = 'free_y', ncol = length(celltypes))
    g <- change_strip_background(p, type = 'top', strip.color = strip.color)
