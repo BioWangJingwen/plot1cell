@@ -23,6 +23,8 @@ complex_heatmap_unique<-function(
   gene_highlight=NULL,
   logfc=0.5,
   return_marker=FALSE,
+  assays = NULL,
+  slot = "data"
   col_fun = colorRamp2(c(-2, -1, 0, 1, 2), rev(c("#BF0080", "#CE6EAE", "#dddddd", "#6EAE6E", "#008000")))
 ){
 cell1<-subset(seu_obj, idents=celltype)
@@ -33,7 +35,10 @@ if (is.null(group_levels)){
   group_levels<-levels(seu_obj@meta.data[,group])
   }
 levels(cell1)<-group_levels
-cell1_avg<-AverageExpression(cell1, verbose = F, return.seurat = F, assays = "RNA")
+if (is.null()) {
+  assays = DefaultAssay(seu_obj)
+}
+cell1_avg<-AverageExpression(cell1, verbose = F, return.seurat = F, assays = assays, slot = slot)
 cell1_avg<-cell1_avg$RNA
 cell1_avg<-data.frame(cell1_avg)
 all_markers<-FindAllMarkers(cell1, min.pct = 0.1, logfc.threshold = logfc,verbose = F)
