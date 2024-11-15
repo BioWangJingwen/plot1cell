@@ -39,7 +39,8 @@ if (is.null(assays)) {
   assays = DefaultAssay(seu_obj)
 }
 cell1_avg<-AverageExpression(cell1, verbose = F, return.seurat = F, assays = assays, slot = slot)
-cell1_avg<-cell1_avg$RNA
+# cell1_avg<-cell1_avg$RNA
+cell1_avg<-cell1_avg[[assays]]
 cell1_avg<-data.frame(cell1_avg)
 all_markers<-FindAllMarkers(cell1, min.pct = 0.1, logfc.threshold = logfc,verbose = F)
 all_markers1<-all_markers[all_markers$avg_log2FC>0,]
