@@ -69,7 +69,7 @@ plot_cell_fraction<-function(
           legend.text = element_text(size = 12), legend.title = element_text(size = 12, face = 'bold'), 
           plot.title = element_text(hjust =0.5))
   
-  if (is.null(fill) {
+  if (is.null(fill)) {
     p <- p + scale_fill_manual(values = brewer.pal(8, 'Set2'))
   } else {
     p <- p + scale_fill_manual(values = fill)
