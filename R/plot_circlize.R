@@ -201,14 +201,14 @@ plot_circlize <- function(
     circos.text(CELL_META$xcenter,
                 CELL_META$cell.ylim[2]+ mm_y(4),
                 CELL_META$sector.index,
-                cex=0.5, col = 'black', facing = "bending.inside", niceFacing = T)
-    circos.axis(labels.cex = 0.3, col = 'black', labels.col =  'black')
+                cex=0.8, col = 'black', facing = "bending.inside", niceFacing = T)
+    circos.axis(labels.cex = 0.5, col = 'black', labels.col =  'black')
   })
   for(i in 1:length(celltypes)){
     dd<-data_plot[data_plot$Cluster==celltypes[i],]
     circos.segments(x0 = min(dd$x_polar2), y0 = 0, x1 = max(dd$x_polar2), y1 = 0, col = cell_colors[i],  lwd=3, sector.index = celltypes[i])
   }
-  text(x = 1, y=0.1, labels = "Cluster", cex = 0.4, col = 'black',srt=-90)
+  text(x = 1, y=0.1, labels = "Cluster", cex = 0.6, col = 'black',srt=-90)
   points(data_plot$x,data_plot$y, pch = 19, col = alpha(data_plot$Colors,0.2), cex = pt.size);
   contour(z, drawlabels=F, nlevels= 100, levels = contour.levels,col = '#ae9c76', add=TRUE)
   if(do.label){
