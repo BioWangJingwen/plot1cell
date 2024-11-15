@@ -24,7 +24,7 @@ complex_heatmap_unique<-function(
   logfc=0.5,
   return_marker=FALSE,
   assays = NULL,
-  slot = "data"
+  slot = "data",
   col_fun = colorRamp2(c(-2, -1, 0, 1, 2), rev(c("#BF0080", "#CE6EAE", "#dddddd", "#6EAE6E", "#008000")))
 ){
 cell1<-subset(seu_obj, idents=celltype)
